@@ -1,0 +1,509 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jethro Demape - Academic Portal</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-gradient: linear-gradient(120deg, #89f7fe 0%, #66a6ff 100%);
+            --secondary-gradient: linear-gradient(120deg, #fbc2eb 0%, #a6c1ee 100%);
+            --accent-gradient: linear-gradient(120deg, #fda085 0%, #f6d365 100%);
+            --card-bg: rgba(255,255,255,0.95);
+            --shadow: 0 8px 32px rgba(102,166,255,0.15);
+        }
+
+        body {
+            background: linear-gradient(120deg, #fbc2eb 0%, #a6c1ee 100%);
+            min-height: 100vh;
+            font-family: 'Montserrat', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .navbar {
+            background: var(--primary-gradient) !important;
+            box-shadow: var(--shadow);
+            border-radius: 0 0 30px 30px;
+        }
+
+        .navbar-brand {
+            font-size: 1.7rem;
+            color: #fff !important;
+            text-shadow: 2px 2px 8px rgba(102,166,255,0.2);
+            letter-spacing: 2px;
+        }
+
+        .navbar-nav .nav-link {
+            color: #fff !important;
+            font-weight: 600;
+            margin: 0 0.5rem;
+            border-radius: 12px;
+            transition: background 0.2s, color 0.2s;
+        }
+        .navbar-nav .nav-link.active,
+        .navbar-nav .nav-link:hover {
+            color: #66a6ff !important;
+            background: rgba(255,255,255,0.3);
+        }
+
+        .hero-section {
+            background: var(--primary-gradient);
+            color: white;
+            padding: 3rem 0 2rem 0;
+            margin-bottom: 2rem;
+            border-radius: 0 0 40px 40px;
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 300px;
+        }
+
+        .hero-section .rocket-anim {
+            animation: rocketUpDown 2.5s infinite cubic-bezier(.4,0,.2,1);
+            display: inline-block;
+        }
+        @keyframes rocketUpDown {
+            0%, 100% { transform: translateY(0);}
+            50% { transform: translateY(-30px);}
+        }
+
+        .hero-section::after {
+            content: '';
+            position: absolute;
+            bottom: -60px;
+            right: -60px;
+            width: 180px;
+            height: 180px;
+            background: var(--accent-gradient);
+            border-radius: 50%;
+            opacity: 0.25;
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+        }
+
+        .section-card {
+            background: var(--card-bg);
+            border-radius: 25px;
+            box-shadow: var(--shadow);
+            border: none;
+            margin-bottom: 2.5rem;
+            transition: box-shadow 0.3s, transform 0.3s;
+            animation: fadeInUp 1s;
+        }
+        .section-card:hover {
+            box-shadow: 0 16px 40px rgba(102,166,255,0.22);
+            transform: translateY(-5px) scale(1.02);
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(40px);}
+            to { opacity: 1; transform: translateY(0);}
+        }
+
+        .card-header {
+            background: var(--secondary-gradient);
+            color: #232526;
+            padding: 1.5rem 2rem;
+            border: none;
+            border-radius: 25px 25px 0 0;
+            font-size: 1.25rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .form-container {
+            background: var(--accent-gradient);
+            border-radius: 18px;
+            padding: 2rem;
+            color: white;
+            box-shadow: 0 10px 30px rgba(253,160,133,0.15);
+            animation: fadeInScale 0.7s;
+        }
+        @keyframes fadeInScale {
+            from { opacity: 0; transform: scale(0.95);}
+            to { opacity: 1; transform: scale(1);}
+        }
+
+        .form-control {
+            border: none;
+            border-radius: 10px;
+            padding: 0.75rem 1rem;
+            background: rgba(255,255,255,0.9);
+            transition: box-shadow 0.3s;
+        }
+        .form-control:focus {
+            box-shadow: 0 0 0 3px rgba(102,166,255,0.2);
+        }
+
+        .btn-gradient {
+            background: var(--primary-gradient);
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            padding: 0.75rem 1.5rem;
+            font-weight: 600;
+            box-shadow: 0 5px 15px rgba(102,166,255,0.15);
+            transition: background 0.2s, box-shadow 0.2s;
+        }
+        .btn-gradient:hover {
+            background: var(--accent-gradient);
+            box-shadow: 0 8px 25px rgba(253,160,133,0.25);
+        }
+
+        .table-modern {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(102,166,255,0.1);
+            animation: fadeInUp 1.2s;
+        }
+
+        .table-modern thead {
+            background: var(--primary-gradient);
+            color: white;
+        }
+
+        .table-modern th, .table-modern td {
+            background: transparent;
+            color: #232526;
+        }
+
+        .table-modern td {
+            border: none;
+            border-bottom: 1px solid rgba(102,166,255,0.07);
+            padding: 1.2rem;
+            vertical-align: middle;
+        }
+
+        .table-modern tbody tr {
+            transition: all 0.3s ease;
+        }
+
+        .table-modern tbody tr:hover {
+            background: var(--secondary-gradient);
+            transform: scale(1.01);
+        }
+
+        .btn-action {
+            border-radius: 8px;
+            padding: 0.4rem 0.8rem;
+            font-size: 0.85rem;
+            font-weight: 600;
+            border: none;
+            transition: all 0.3s ease;
+            margin: 0 0.2rem;
+        }
+
+        .btn-edit {
+            background: var(--primary-gradient);
+            color: white;
+        }
+
+        .btn-delete {
+            background: var(--accent-gradient);
+            color: white;
+        }
+
+        .btn-action:hover {
+            transform: translateY(-2px) scale(1.08);
+            box-shadow: 0 5px 15px rgba(102,166,255,0.3);
+        }
+
+        .topics-table {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(102,166,255,0.1);
+            animation: fadeInUp 1.3s;
+        }
+
+        .topic-cell {
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 0.5rem 0;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            font-size: 1.05rem;
+        }
+
+        .topic1, .topic-cell.topic1 {
+            background: linear-gradient(120deg, #89f7fe 0%, #66a6ff 100%);
+            color: #fff;
+        }
+        .topic2, .topic-cell.topic2 {
+            background: linear-gradient(120deg, #fbc2eb 0%, #a6c1ee 100%);
+            color: #232526;
+        }
+        .extra1 {
+            background: linear-gradient(120deg, #fda085 0%, #f6d365 100%);
+            color: #fff;
+        }
+        .extra2 {
+            background: linear-gradient(120deg, #a6c1ee 0%, #fbc2eb 100%);
+            color: #232526;
+        }
+        .topic3, .topic-cell.topic3 {
+            background: linear-gradient(120deg, #f6d365 0%, #fda085 100%);
+            color: #232526;
+        }
+        .extra3 {
+            background: linear-gradient(120deg, #fbc2eb 0%, #fda085 100%);
+            color: #232526;
+        }
+        .topic4, .topic-cell.topic4 {
+            background: linear-gradient(120deg, #43cea2 0%, #185a9d 100%);
+            color: #fff;
+        }
+        .extra4 {
+            background: linear-gradient(120deg, #43cea2 0%, #185a9d 100%);
+            color: #fff;
+        }
+
+        .footer {
+            background: var(--primary-gradient);
+            color: white;
+            margin-top: 4rem;
+            border-radius: 40px 40px 0 0;
+            box-shadow: var(--shadow);
+            animation: fadeInUp 1.5s;
+        }
+        .footer-content h4 {
+            color: #a6c1ee;
+        }
+        .contact-icon {
+            background: rgba(255,255,255,0.2);
+            color: #66a6ff;
+            border-radius: 50%;
+            width: 38px;
+            height: 38px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right:12px;
+            font-size:1.2rem;
+        }
+        
+        .contact-icon:hover {
+            background: rgba(255,255,255,0.4);
+            color: #fda085;
+        }
+
+        .floating-g {
+            animation: float 3s ease-in-out infinite;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0px);}
+            50% { transform: translateY(-10px);}
+        }
+
+        @media (max-width: 768px) {
+            .hero-section {
+                padding: 2rem 0;
+                min-height: 180px;
+            }
+            .section-card {
+                margin-bottom: 1rem;
+            }
+            .card-header {
+                padding: 1rem;
+                font-size: 1.1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="#">
+                <i class="fas fa-graduation-cap me-2"></i>Jethro Demape
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link active fw-bold" href="#home"><i class="fas fa-home me-1"></i>Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#about"><i class="fas fa-user me-1"></i>About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contact"><i class="fas fa-envelope me-1"></i>Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <div id="home" class="hero-section" style="margin-top: 76px;">
+        <div class="container hero-content">
+            <div class="row align-items-center justify-content-center">
+                <div class="col-lg-8 text-center">
+                    <h1 class="fw-bold mb-3" style="letter-spacing:2px;">Welcome to Jethro's Portal</h1>
+                    <p class="lead mb-4">Your one-stop hub for schedules, topics, and resources.</p>
+                </div>
+                <div class="col-lg-4 text-center">
+                    <div class="rocket-anim">
+                        <i class="fas fa-rocket fa-5x opacity-50"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Class Schedule Section -->
+        <div id="about" class="section-card">
+            <div class="card-header">
+                <h3><i class="fas fa-clock me-2"></i>Class Schedule</h3>
+            </div>
+            <div class="card-body p-4">
+                <!-- Edit Form -->
+                <div id="formContainer" class="form-container mb-4" style="display:none;">
+                    <h5 class="text-center mb-4">
+                        <i class="fas fa-edit me-2"></i>Edit Schedule
+                    </h5>
+                    <form id="scheduleForm">
+                        <div class="row g-3">
+                            <div class="col-md-4">
+                                <input type="text" class="form-control" id="formDay" placeholder="Day" required>
+                            </div>
+                            <div class="col-md-4">
+                                <input type="text" class="form-control" id="formSubject" placeholder="Subject" required>
+                            </div>
+                            <div class="col-md-4">
+                                <input type="text" class="form-control" id="formTime" placeholder="Time" required>
+                            </div>
+                        </div>
+                        <div class="text-center mt-4">
+                            <button type="submit" class="btn btn-gradient text-white me-2">
+                                <i class="fas fa-save me-1"></i>Save Changes
+                            </button>
+                            <button type="button" class="btn btn-light" onclick="cancelForm()">
+                                <i class="fas fa-times me-1"></i>Cancel
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Schedule Table -->
+                <div class="table-responsive">
+                    <table class="table table-modern" id="scheduleTable">
+                        <thead>
+                            <tr>
+                                <th><i class="fas fa-calendar-day me-1"></i>Day</th>
+                                <th><i class="fas fa-book me-1"></i>Subject</th>
+                                <th><i class="fas fa-clock me-1"></i>Time</th>
+                                <th class="text-center"><i class="fas fa-cogs me-1"></i>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Wed/Thu</strong></td>
+                                <td>Web System and Technologies 1</td>
+                                <td><span class="badge bg-primary">10:00 - 12:00</span></td>
+                                <td class="text-center">
+                                    <button class="btn btn-action btn-edit" onclick="openEdit(this)">
+                                        <i class="fas fa-edit me-1"></i>Edit
+                                    </button>
+                                    <button class="btn btn-action btn-delete" onclick="deleteRow(this)">
+                                        <i class="fas fa-trash me-1"></i>Delete
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>Wed/Thu</strong></td>
+                                <td>Standard American English</td>
+                                <td><span class="badge bg-success">1:00 - 3:00</span></td>
+                                <td class="text-center">
+                                    <button class="btn btn-action btn-edit" onclick="openEdit(this)">
+                                        <i class="fas fa-edit me-1"></i>Edit
+                                    </button>
+                                    <button class="btn btn-action btn-delete" onclick="deleteRow(this)">
+                                        <i class="fas fa-trash me-1"></i>Delete
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>Wed/Thu</strong></td>
+                                <td>Introduction to HCI</td>
+                                <td><span class="badge bg-info">3:00 - 5:00</span></td>
+                                <td class="text-center">
+                                    <button class="btn btn-action btn-edit" onclick="openEdit(this)">
+                                        <i class="fas fa-edit me-1"></i>Edit
+                                    </button>
+                                    <button class="btn btn-action btn-delete" onclick="deleteRow(this)">
+                                        <i class="fas fa-trash me-1"></i>Delete
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>Wed/Thu</strong></td>
+                                <td>Data Structure</td>
+                                <td><span class="badge bg-warning">5:30 - 7:30</span></td>
+                                <td class="text-center">
+                                    <button class="btn btn-action btn-edit" onclick="openEdit(this)">
+                                        <i class="fas fa-edit me-1"></i>Edit
+                                    </button>
+                                    <button class="btn btn-action btn-delete" onclick="deleteRow(this)">
+                                        <i class="fas fa-trash me-1"></i>Delete
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Topics and Content Section -->
+        <div class="section-card">
+            <div class="card-header">
+                <div class="d-flex align-items-center justify-content-between">
+                    <h3 class="mb-0"><i class="fas fa-lightbulb me-2"></i>Topics and Content</h3>
+                    <button id="backToTopics" class="btn btn-sm btn-secondary" style="display:none;">
+                        <i class="fas fa-arrow-left me-1"></i>Back
+                    </button>
+                </div>
+            </div>
+            <div class="card-body p-4">
+                <div class="table-responsive">
+                    <table class="table topics-table">
+                        <thead>
+                            <tr>
+                                <th style="width: 20%;"><i class="fas fa-tags me-1"></i>Topics</th>
+                                <th style="width: 55%;"><i class="fas fa-file-alt me-1"></i>Content</th>
+                                <th style="width: 25%;"><i class="fas fa-plus-circle me-1"></i>Extra List</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="topic-row" data-topic="topic1">
+                                <td>
+                                    <div class="topic-cell topic1 topic-select" style="cursor:pointer;" data-topic="topic1">
+                                        <i class="fas fa-play-circle me-2"></i><strong>Topic 1</strong>
+                                    </div>
+                                </td>
+                                <td class="topic-content topic1-content">
+                                    <div class="topic-cell topic1">
+                                        <i class="fas fa-code me-2"></i>
+                                        <strong>Introduction to Web Development</strong><br>
+                                        Internet overview, HTML, CSS, JavaScript, and web standards.
+                                    </div>
+                                </td>
+                                <td class="topic-content topic1-content">
+                                    <div class="topic-cell extra1">
+                                        <i class="fas fa-star me-2"></i>
+                                        <strong>Study Tips</strong><br>
+                                        Best practices and helpful resources.
+                                    </div>

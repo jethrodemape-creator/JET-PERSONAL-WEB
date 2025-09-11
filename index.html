@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Personal Website</title>
+  <link rel="icon" href="online-resume.png" type="image/png">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Personal website with video, audio, and Google Map." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <header class="site-header">
+    <div class="container nav-wrap">
+      <a href="#" class="brand">PERSONAL WEB.</a>
+      <nav class="nav">
+        <a href="#about">About</a>
+        <a href="#media">video</a>
+        <a href="#projects">Projects</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO -->
+    <section class="hero">
+      <div class="container hero-grid">
+        <div>
+          <h1>Hello, I’m <span class="accent">Jethro Demapegilan</span></h1>
+          <p class="lede">
+            BSIT 2B GWAPOOOOO
+          </p>
+          <div class="cta-row">
+            <a class="btn" href="#media">Video</a>
+          </div>
+        </div>
+        <div class="hero-card" role="img" aria-label="Abstract gradient card">
+          <img src="botirik.png" alt="Photo of Jethro Demapegilan">
+          <span class="pulse" aria-hidden="true"></span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about" class="section">
+      <div class="container grid-2">
+        <div>
+          <h2>About Me</h2>
+          <p>I'm Jethro Demapegilan I love eating</p>
+          <ul class="list">
+            <li>Focus: JAVA,CSS,HTML</li>
+            <li>MCDO,JOLLIBEE,JOILYNS,DENS CAFE,NET CENTRAL,ACES PANABO</li>
+            <li>Hobbies: EATING,SUMBAGAY,OVERTHINK</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Quick Details</h3>
+          <dl class="cols">
+            <div><dt>Name</dt><dd>Jethro Demapegilan</dd></div>
+            <div><dt>Role</dt><dd>Developer</dd></div>
+            <div><dt>Location</dt><dd>Philippines</dd></div>
+            <div><dt>Email</dt><dd><a href="mailto:you@example.com">demape@gmail.com</a></dd></div>
+          </dl>
+        </div>
+      </div>
+    </section>
+
+    <!-- MEDIA -->
+    <section id="media" class="section">
+      <div class="container">
+        <div class="media-grid">
+
+          <!-- GALLERY -->
+          <section id="gallery" class="section">
+            <div class="container">
+              <h2>Photo Gallery</h2>
+              <p class="muted">Here are some table pictures for display.</p>
+
+              <div class="gallery-grid">
+                <figure class="gallery-card">
+                  <img src="1.png" alt="Wooden table with chairs" />
+                  <figcaption>NAWNG</figcaption>
+                </figure>
+                <figure class="gallery-card">
+                  <img src="2.png" alt="Modern glass table" />
+                  <figcaption>NA</figcaption>
+                </figure>
+                <figure class="gallery-card">
+                  <img src="3.png" alt="Round coffee table" />
+                  <figcaption>OR</figcaption>
+                </figure>
+                <figure class="gallery-card">
+                  <img src="unswek.png" alt="Office desk table" />
+                  <figcaption>LOBOT</figcaption>
+                </figure>
+              </div>
+            </div>
+          </section>
+
+          <!-- VIDEO -->
+          <figure class="media-card">
+            <figcaption></figcaption>
+            <video controls preload="metadata" poster="jet.jpg" class="media">
+              <source src="video.mp4" type="video/mp4" />
+              <p>Your browser does not support the video tag. You can <a href="video">download the video</a> instead.</p>
+            </video>
+          </figure>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section id="projects" class="section">
+      <div class="container">
+        <h2>Projects</h2>
+        <p class="muted">Here are some projects I've worked on recently.</p>
+
+        <div class="gallery-grid">
+          <a href="proj1.html" class="gallery-card" target="_blank">
+            <img src="Screenshot (907).png" alt="Student Grading System">
+            <figcaption>Student Grading System</figcaption>
+          </a>
+
+          <a href="proj2.html" class="gallery-card" target="_blank">
+            <img src="Screenshot (905).png" alt="Online Food Order App">
+            <figcaption>CHAT GPT CLONE</figcaption>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- KAMPO NAMO moved below projects -->
+    <section id="location" class="section">
+      <div class="container">
+        <h2>KAMPO NAMO</h2>
+        <p class="muted">This embedded Google Map shows a general area. Update it to your exact city or a nearby landmark.</p>
+
+        <div class="map-card">
+          <div class="map-ratio">
+            <iframe
+              title="Google Map"
+              loading="lazy"
+              allowfullscreen
+              referrerpolicy="no-referrer-when-downgrade"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3957.3780413498143!2d125.6742533740513!3d7.311358213508719!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x32f945b644169c7d%3A0x6f59cc78878e60f1!2sAces%20Polytechnic%20College!5e0!3m2!1sen!2sph!4v1756310396393!5m2!1sen!2sph">
+            </iframe>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT SECTION -->
+    <section id="contact" style="padding: 40px; background: rgba(255, 255, 255, 0.05); border-radius: 15px; backdrop-filter: blur(10px); box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1); max-width: 900px; margin: auto; color: white; font-family: 'Segoe UI', sans-serif;">
+      <h2 style="text-align: center; font-size: 2em; margin-bottom: 20px;">📫 Contact Me</h2>
+
+      <form action="#" method="POST" style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: space-between;">
+        <div style="flex: 1 1 45%;">
+          <label for="name" style="display: block; margin-bottom: 5px;">Name:</label>
+          <input type="text" id="name" name="name" required style="width: 100%; padding: 10px; border-radius: 10px; border: none; background-color: rgba(255,255,255,0.1); color: white;">
+        </div>
+
+        <div style="flex: 1 1 45%;">
+          <label for="email" style="display: block; margin-bottom: 5px;">Email:</label>
+          <input type="email" id="email" name="email" required style="width: 100%; padding: 10px; border-radius: 10px; border: none; background-color: rgba(255,255,255,0.1); color: white;">
+        </div>
+
+        <div style="flex: 1 1 100%;">
+          <label for="message" style="display: block; margin-bottom: 5px;">Message:</label>
+          <textarea id="message" name="message" rows="5" required style="width: 100%; padding: 10px; border-radius: 10px; border: none; background-color: rgba(255,255,255,0.1); color: white; resize: none;"></textarea>
+        </div>
+
+        <div style="flex: 1 1 100%; text-align: center;">
+          <button type="submit" style="padding: 12px 30px; border: none; border-radius: 25px; background: linear-gradient(to right, #7F00FF, #E100FF); color: white; font-weight: bold; cursor: pointer; transition: 0.3s;">
+            Send Message
+          </button>
+        </div>
+      </form>
+    </section>
+  </main>
+
+  <br>
+  <br>
+  <footer class="site-footer">
+    <div class="container">
+      <p>© <span id="year"></span> JETHRO DEMAPE BSIT 2-B</p>
+    </div>
+
+    <div class="shooting-stars">
+      <span class="shooting-star"></span>
+      <span class="shooting-star"></span>
+      <span class="shooting-star"></span>
+      <span class="shooting-star"></span>
+      <span class="shooting-star"></span>
+      <span class="shooting-star"></span>
+      <span class="shooting-star"></span>
+      <span class="shooting-star"></span>
+      <span class="shooting-star"></span>
+      <span class="shooting-star"></span>
+    </div>
+
+    <div class="falling-stars">
+      <span class="star"></span>
+      <span class="star"></span>
+      <span class="star"></span>
+      <span class="star"></span>
+      <span class="star"></span>
+      <span class="star"></span>
+      <span class="star"></span>
+      <span class="star"></span>
+      <span class="star"></span>
+      <span class="star"></span>
+    </div>
+
+    <script>
+      document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
+  </footer>
+
+</body>
+</html>
