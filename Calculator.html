@@ -1,0 +1,1057 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jethro's Calculator</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f5e6d8 0%, #e8d5c4 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 420px;
+            background-color: #fff;
+            border-radius: 20px;
+            box-shadow: 0 15px 30px rgba(139, 108, 93, 0.2);
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+        
+        .container:hover {
+            transform: translateY(-5px);
+        }
+        
+        .form-container {
+            padding: 40px 30px;
+            transition: transform 0.5s ease;
+        }
+        
+        .logo {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .logo-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, #8b6c5d 0%, #b89b8a 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 12px rgba(139, 108, 93, 0.3);
+        }
+        
+        .logo-icon i {
+            font-size: 32px;
+            color: white;
+        }
+        
+        h2 {
+            text-align: center;
+            margin-bottom: 8px;
+            color: #8b6c5d;
+            font-weight: 600;
+            font-size: 28px;
+        }
+        
+        .tagline {
+            text-align: center;
+            color: #b89b8a;
+            margin-bottom: 30px;
+            font-size: 16px;
+            font-weight: 500;
+        }
+        
+        .input-group {
+            margin-bottom: 20px;
+            position: relative;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #8b6c5d;
+            font-weight: 500;
+        }
+        
+        .input-with-icon {
+            position: relative;
+        }
+        
+        .input-with-icon i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #b89b8a;
+            font-size: 18px;
+        }
+        
+        input {
+            width: 100%;
+            padding: 14px 15px 14px 45px;
+            border: 2px solid #e8d5c4;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: all 0.3s;
+            background-color: #faf5f0;
+            color: #8b6c5d;
+        }
+        
+        input:focus {
+            border-color: #b89b8a;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(184, 155, 138, 0.2);
+        }
+        
+        input::placeholder {
+            color: #c9b4a5;
+        }
+        
+        .password-requirements {
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #faf5f0;
+            border-radius: 8px;
+            border: 1px solid #e8d5c4;
+        }
+        
+        .requirement {
+            display: flex;
+            align-items: center;
+            margin-bottom: 5px;
+            font-size: 14px;
+            color: #8b6c5d;
+        }
+        
+        .requirement i {
+            margin-right: 8px;
+            font-size: 12px;
+        }
+        
+        .requirement.valid {
+            color: #4caf50;
+        }
+        
+        .requirement.invalid {
+            color: #b89b8a;
+        }
+        
+        .remember-forgot {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+        
+        .remember {
+            display: flex;
+            align-items: center;
+        }
+        
+        .remember input {
+            width: auto;
+            margin-right: 8px;
+        }
+        
+        .remember label {
+            margin-bottom: 0;
+            color: #8b6c5d;
+        }
+        
+        .forgot {
+            color: #b89b8a;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .forgot:hover {
+            color: #8b6c5d;
+            text-decoration: underline;
+        }
+        
+        button {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(to right, #b89b8a, #8b6c5d);
+            border: none;
+            border-radius: 10px;
+            color: white;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 10px rgba(139, 108, 93, 0.3);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        button i {
+            margin-right: 10px;
+        }
+        
+        button:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(139, 108, 93, 0.4);
+        }
+        
+        .message {
+            text-align: center;
+            margin-top: 20px;
+            color: #d4a373;
+            font-size: 14px;
+            min-height: 20px;
+            padding: 10px;
+            border-radius: 5px;
+            background-color: #fdf6f0;
+            transition: all 0.3s;
+        }
+        
+        .message.success {
+            color: #8b6c5d;
+            background-color: #f0e6db;
+        }
+        
+        .divider {
+            display: flex;
+            align-items: center;
+            margin: 25px 0;
+            color: #b89b8a;
+        }
+        
+        .divider::before,
+        .divider::after {
+            content: "";
+            flex: 1;
+            height: 1px;
+            background-color: #e8d5c4;
+        }
+        
+        .divider span {
+            padding: 0 15px;
+            font-size: 14px;
+        }
+        
+        .signup-link {
+            text-align: center;
+            color: #8b6c5d;
+            font-size: 14px;
+            margin-top: 20px;
+        }
+        
+        .signup-link a {
+            color: #b89b8a;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s;
+            cursor: pointer;
+        }
+        
+        .signup-link a:hover {
+            color: #8b6c5d;
+            text-decoration: underline;
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 25px;
+            font-size: 12px;
+            color: #b89b8a;
+            padding: 10px;
+            background-color: #faf5f0;
+            border-radius: 8px;
+        }
+        
+        /* Sign Up Form Styles */
+        .signup-form {
+            display: none;
+        }
+        
+        .back-to-login {
+            text-align: center;
+            margin-top: 15px;
+        }
+        
+        .back-to-login a {
+            color: #b89b8a;
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.3s;
+        }
+        
+        .back-to-login a:hover {
+            color: #8b6c5d;
+            text-decoration: underline;
+        }
+        
+        /* Calculator Styles */
+        .calculator {
+            display: none;
+            padding: 25px;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .user-info {
+            color: #8b6c5d;
+            font-weight: 500;
+        }
+        
+        .display-container {
+            background-color: #faf5f0;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border: 2px solid #e8d5c4;
+            box-shadow: inset 0 2px 5px rgba(139, 108, 93, 0.1);
+        }
+        
+        .display {
+            text-align: right;
+            font-size: 32px;
+            min-height: 50px;
+            word-wrap: break-word;
+            color: #8b6c5d;
+            font-weight: 600;
+        }
+        
+        .history {
+            text-align: right;
+            font-size: 16px;
+            min-height: 24px;
+            color: #b89b8a;
+            margin-bottom: 10px;
+        }
+        
+        .buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+        }
+        
+        .calc-btn {
+            padding: 18px 10px;
+            font-size: 20px;
+            border: none;
+            border-radius: 12px;
+            background-color: #faf5f0;
+            color: #8b6c5d;
+            cursor: pointer;
+            transition: all 0.2s;
+            box-shadow: 0 4px 6px rgba(139, 108, 93, 0.1);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .calc-btn:hover {
+            background-color: #f0e6db;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 8px rgba(139, 108, 93, 0.15);
+        }
+        
+        .calc-btn:active {
+            transform: translateY(0);
+        }
+        
+        .operator {
+            background-color: #e8d5c4;
+            color: #8b6c5d;
+            font-weight: 600;
+        }
+        
+        .equals {
+            background: linear-gradient(to right, #b89b8a, #8b6c5d);
+            color: white;
+            grid-column: span 2;
+        }
+        
+        .clear {
+            background-color: #f5e6d8;
+            color: #8b6c5d;
+        }
+        
+        .logout {
+            margin-top: 20px;
+            background-color: #faf5f0;
+            color: #8b6c5d;
+            border: 2px solid #e8d5c4;
+            padding: 12px;
+            font-size: 14px;
+        }
+        
+        @media (max-width: 480px) {
+            .container {
+                max-width: 100%;
+            }
+            
+            .form-container {
+                padding: 30px 20px;
+            }
+            
+            .remember-forgot {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+            
+            .calc-btn {
+                padding: 15px 5px;
+                font-size: 18px;
+            }
+            
+            .display {
+                font-size: 28px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Login Form -->
+        <div class="form-container" id="login-form">
+            <div class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-calculator"></i>
+                </div>
+                <h2>Nudes8 Calculator</h2>
+                <p class="tagline">Secure access to your personal calculator</p>
+            </div>
+            
+            <div class="input-group">
+                <label for="username"><i class="fas fa-user"></i> Username</label>
+                <div class="input-with-icon">
+                    <i class="fas fa-user"></i>
+                    <input type="text" id="username" placeholder="Enter your username">
+                </div>
+            </div>
+            
+            <div class="input-group">
+                <label for="password"><i class="fas fa-lock"></i> Password</label>
+                <div class="input-with-icon">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" id="password" placeholder="Enter your password">
+                </div>
+            </div>
+            
+            <div class="remember-forgot">
+                <div class="remember">
+                    <input type="checkbox" id="remember">
+                    <label for="remember">Remember me</label>
+                </div>
+                <a href="#" class="forgot">Forgot password?</a>
+            </div>
+            
+            <button id="login-btn">
+                <i class="fas fa-sign-in-alt"></i> Login to Calculator
+            </button>
+            
+            <div class="message" id="login-message"></div>
+            
+            <div class="divider">
+                <span>New to Nudes8?</span>
+            </div>
+            
+            <div class="signup-link">
+                Don't have an account? <a id="show-signup">Sign up here</a>
+            </div>
+            
+            <div class="footer">
+                <p>Default credentials: admin / Password123!</p>
+            </div>
+        </div>
+        
+        <!-- Sign Up Form -->
+        <div class="form-container signup-form" id="signup-form">
+            <div class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-user-plus"></i>
+                </div>
+                <h2>Create Account</h2>
+                <p class="tagline">Join us to access the calculator</p>
+            </div>
+            
+            <div class="input-group">
+                <label for="new-username">Username</label>
+                <div class="input-with-icon">
+                    <i class="fas fa-user"></i>
+                    <input type="text" id="new-username" placeholder="Choose a username">
+                </div>
+            </div>
+            
+            <div class="input-group">
+                <label for="new-email">Email</label>
+                <div class="input-with-icon">
+                    <i class="fas fa-envelope"></i>
+                    <input type="email" id="new-email" placeholder="Enter your email">
+                </div>
+            </div>
+            
+            <div class="input-group">
+                <label for="new-password">Password</label>
+                <div class="input-with-icon">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" id="new-password" placeholder="Create a password">
+                </div>
+                <div class="password-requirements">
+                    <div class="requirement invalid" id="req-length">
+                        <i class="fas fa-circle"></i> At least 8 characters
+                    </div>
+                    <div class="requirement invalid" id="req-lowercase">
+                        <i class="fas fa-circle"></i> Lowercase letter (a-z)
+                    </div>
+                    <div class="requirement invalid" id="req-uppercase">
+                        <i class="fas fa-circle"></i> Uppercase letter (A-Z)
+                    </div>
+                    <div class="requirement invalid" id="req-digit">
+                        <i class="fas fa-circle"></i> Digit (0-9)
+                    </div>
+                    <div class="requirement invalid" id="req-special">
+                        <i class="fas fa-circle"></i> Special character (!@#$%^&*)
+                    </div>
+                </div>
+            </div>
+            
+            <div class="input-group">
+                <label for="confirm-password">Confirm Password</label>
+                <div class="input-with-icon">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" id="confirm-password" placeholder="Confirm your password">
+                </div>
+            </div>
+            
+            <button id="signup-btn">
+                <i class="fas fa-user-plus"></i> Create Account
+            </button>
+            
+            <div class="message" id="signup-message"></div>
+            
+            <div class="back-to-login">
+                <a id="back-to-login">Back to login</a>
+            </div>
+        </div>
+        
+        <!-- Calculator -->
+        <div class="calculator" id="calculator">
+            <div class="header">
+                <div class="user-info">
+                    <i class="fas fa-user-circle"></i> Welcome, <span id="user-display">User</span>!
+                </div>
+                <div class="logo">
+                    <i class="fas fa-calculator"></i>
+                </div>
+            </div>
+            
+            <div class="display-container">
+                <div class="history" id="history"></div>
+                <div class="display" id="display">0</div>
+            </div>
+            
+            <div class="buttons">
+                <button class="calc-btn clear" data-action="clear">C</button>
+                <button class="calc-btn clear" data-action="backspace"><i class="fas fa-backspace"></i></button>
+                <button class="calc-btn operator" data-action="/"><i class="fas fa-divide"></i></button>
+                <button class="calc-btn operator" data-action="*"><i class="fas fa-times"></i></button>
+                
+                <button class="calc-btn" data-action="7">7</button>
+                <button class="calc-btn" data-action="8">8</button>
+                <button class="calc-btn" data-action="9">9</button>
+                <button class="calc-btn operator" data-action="-"><i class="fas fa-minus"></i></button>
+                
+                <button class="calc-btn" data-action="4">4</button>
+                <button class="calc-btn" data-action="5">5</button>
+                <button class="calc-btn" data-action="6">6</button>
+                <button class="calc-btn operator" data-action="+"><i class="fas fa-plus"></i></button>
+                
+                <button class="calc-btn" data-action="1">1</button>
+                <button class="calc-btn" data-action="2">2</button>
+                <button class="calc-btn" data-action="3">3</button>
+                <button class="calc-btn operator" data-action=".">.</button>
+                
+                <button class="calc-btn" data-action="0">0</button>
+                <button class="calc-btn equals" data-action="="><i class="fas fa-equals"></i></button>
+            </div>
+            
+            <button class="logout" id="logout-btn">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Default user credentials with LUDs8 compliance
+        const defaultUser = {
+            username: 'admin',
+            password: 'Password123!'
+        };
+        
+        // DOM Elements
+        const loginForm = document.getElementById('login-form');
+        const signupForm = document.getElementById('signup-form');
+        const calculator = document.getElementById('calculator');
+        const loginBtn = document.getElementById('login-btn');
+        const signupBtn = document.getElementById('signup-btn');
+        const logoutBtn = document.getElementById('logout-btn');
+        const usernameInput = document.getElementById('username');
+        const passwordInput = document.getElementById('password');
+        const newUsernameInput = document.getElementById('new-username');
+        const newEmailInput = document.getElementById('new-email');
+        const newPasswordInput = document.getElementById('new-password');
+        const confirmPasswordInput = document.getElementById('confirm-password');
+        const loginMessage = document.getElementById('login-message');
+        const signupMessage = document.getElementById('signup-message');
+        const userDisplay = document.getElementById('user-display');
+        const display = document.getElementById('display');
+        const historyDisplay = document.getElementById('history');
+        const calcButtons = document.querySelectorAll('.calc-btn');
+        const showSignupLink = document.getElementById('show-signup');
+        const backToLoginLink = document.getElementById('back-to-login');
+        const rememberCheckbox = document.getElementById('remember');
+        
+        // Password requirement elements
+        const reqLength = document.getElementById('req-length');
+        const reqLowercase = document.getElementById('req-lowercase');
+        const reqUppercase = document.getElementById('req-uppercase');
+        const reqDigit = document.getElementById('req-digit');
+        const reqSpecial = document.getElementById('req-special');
+        
+        // Calculator state
+        let currentInput = '0';
+        let previousInput = '';
+        let operation = null;
+        let resetScreen = false;
+        let calculationHistory = '';
+        
+        // Check if user is already logged in
+        window.addEventListener('DOMContentLoaded', () => {
+            const loggedInUser = localStorage.getItem('calculatorUser');
+            if (loggedInUser) {
+                showCalculator(loggedInUser);
+            }
+            
+            // Check if user credentials are remembered
+            const rememberedUser = localStorage.getItem('rememberedUser');
+            const rememberedPassword = localStorage.getItem('rememberedPassword');
+            
+            if (rememberedUser && rememberedPassword) {
+                usernameInput.value = rememberedUser;
+                passwordInput.value = rememberedPassword;
+                rememberCheckbox.checked = true;
+            }
+        });
+        
+        // Password validation function
+        function validatePassword(password) {
+            const requirements = {
+                length: password.length >= 8,
+                lowercase: /[a-z]/.test(password),
+                uppercase: /[A-Z]/.test(password),
+                digit: /[0-9]/.test(password),
+                special: /[!@#$%^&*]/.test(password)
+            };
+            
+            // Update UI based on validation
+            updateRequirementUI(reqLength, requirements.length);
+            updateRequirementUI(reqLowercase, requirements.lowercase);
+            updateRequirementUI(reqUppercase, requirements.uppercase);
+            updateRequirementUI(reqDigit, requirements.digit);
+            updateRequirementUI(reqSpecial, requirements.special);
+            
+            // Check if all requirements are met
+            return Object.values(requirements).every(req => req === true);
+        }
+        
+        function updateRequirementUI(element, isValid) {
+            if (isValid) {
+                element.classList.remove('invalid');
+                element.classList.add('valid');
+                element.innerHTML = '<i class="fas fa-check"></i> ' + element.textContent.substring(12);
+            } else {
+                element.classList.remove('valid');
+                element.classList.add('invalid');
+                element.innerHTML = '<i class="fas fa-circle"></i> ' + element.textContent.substring(12);
+            }
+        }
+        
+        // Real-time password validation
+        newPasswordInput.addEventListener('input', function() {
+            validatePassword(this.value);
+        });
+        
+        // Login functionality
+        loginBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            const username = usernameInput.value.trim();
+            const password = passwordInput.value;
+            
+            if (!username || !password) {
+                showLoginMessage('Please enter both username and password');
+                return;
+            }
+            
+            // Get stored users
+            const storedUsers = JSON.parse(localStorage.getItem('calculatorUsers')) || {};
+            
+            // Check if user exists and password matches
+            if ((username === defaultUser.username && password === defaultUser.password) || 
+                (storedUsers[username] && storedUsers[username].password === password)) {
+                
+                // Store credentials if "Remember me" is checked
+                if (rememberCheckbox.checked) {
+                    localStorage.setItem('rememberedUser', username);
+                    localStorage.setItem('rememberedPassword', password);
+                } else {
+                    localStorage.removeItem('rememberedUser');
+                    localStorage.removeItem('rememberedPassword');
+                }
+                
+                // Store login state
+                localStorage.setItem('calculatorUser', username);
+                showLoginMessage('Login successful!', 'success');
+                
+                // Show calculator after a brief delay
+                setTimeout(() => {
+                    showCalculator(username);
+                }, 1000);
+            } else {
+                showLoginMessage('Invalid username or password');
+            }
+        });
+        
+        // Sign up functionality
+        signupBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            const username = newUsernameInput.value.trim();
+            const email = newEmailInput.value.trim();
+            const password = newPasswordInput.value;
+            const confirmPassword = confirmPasswordInput.value;
+            
+            if (!username || !email || !password || !confirmPassword) {
+                showSignupMessage('Please fill in all fields');
+                return;
+            }
+            
+            if (password !== confirmPassword) {
+                showSignupMessage('Passwords do not match');
+                return;
+            }
+            
+            // Validate password against LUDs8 requirements
+            if (!validatePassword(password)) {
+                showSignupMessage('Password does not meet all requirements');
+                return;
+            }
+            
+            // Simple email validation
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                showSignupMessage('Please enter a valid email address');
+                return;
+            }
+            
+            // Get stored users
+            const storedUsers = JSON.parse(localStorage.getItem('calculatorUsers')) || {};
+            
+            // Check if username already exists
+            if (storedUsers[username] || username === defaultUser.username) {
+                showSignupMessage('Username already exists');
+                return;
+            }
+            
+            // Check if email already exists
+            for (let user in storedUsers) {
+                if (storedUsers[user].email === email) {
+                    showSignupMessage('Email address already registered');
+                    return;
+                }
+            }
+            
+            // Create new user
+            storedUsers[username] = {
+                email: email,
+                password: password
+            };
+            
+            // Save to localStorage
+            localStorage.setItem('calculatorUsers', JSON.stringify(storedUsers));
+            
+            showSignupMessage('Account created successfully! You can now login.', 'success');
+            
+            // Clear form
+            newUsernameInput.value = '';
+            newEmailInput.value = '';
+            newPasswordInput.value = '';
+            confirmPasswordInput.value = '';
+            
+            // Reset password requirements UI
+            resetPasswordRequirements();
+            
+            // Switch to login form after a delay
+            setTimeout(() => {
+                showLoginForm();
+            }, 2000);
+        });
+        
+        function resetPasswordRequirements() {
+            const requirements = [reqLength, reqLowercase, reqUppercase, reqDigit, reqSpecial];
+            requirements.forEach(req => {
+                req.classList.remove('valid');
+                req.classList.add('invalid');
+                req.innerHTML = '<i class="fas fa-circle"></i> ' + req.textContent.substring(12);
+            });
+        }
+        
+        // Logout functionality
+        logoutBtn.addEventListener('click', () => {
+            localStorage.removeItem('calculatorUser');
+            showLoginForm();
+        });
+        
+        // Show signup form
+        showSignupLink.addEventListener('click', () => {
+            showSignupForm();
+        });
+        
+        // Show login form
+        backToLoginLink.addEventListener('click', () => {
+            showLoginForm();
+        });
+        
+        // Forgot password functionality
+        document.querySelector('.forgot').addEventListener('click', (e) => {
+            e.preventDefault();
+            showLoginMessage('Password reset instructions have been sent to your email.');
+        });
+        
+        // Calculator functionality
+        calcButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const action = button.dataset.action;
+                
+                if (!isNaN(action) || action === '.') {
+                    appendNumber(action);
+                } else if (['+', '-', '*', '/'].includes(action)) {
+                    chooseOperation(action);
+                } else if (action === '=') {
+                    compute();
+                } else if (action === 'clear') {
+                    clear();
+                } else if (action === 'backspace') {
+                    backspace();
+                }
+                
+                updateDisplay();
+            });
+        });
+        
+        function appendNumber(number) {
+            if (currentInput === '0' || resetScreen) {
+                currentInput = number;
+                resetScreen = false;
+            } else {
+                if (number === '.' && currentInput.includes('.')) return;
+                currentInput += number;
+            }
+        }
+        
+        function chooseOperation(op) {
+            if (currentInput === '') return;
+            
+            if (previousInput !== '') {
+                compute();
+            }
+            
+            operation = op;
+            previousInput = currentInput;
+            calculationHistory = `${currentInput} ${getOperationSymbol(op)}`;
+            resetScreen = true;
+        }
+        
+        function compute() {
+            let computation;
+            const prev = parseFloat(previousInput);
+            const current = parseFloat(currentInput);
+            
+            if (isNaN(prev) || isNaN(current)) return;
+            
+            switch (operation) {
+                case '+':
+                    computation = prev + current;
+                    break;
+                case '-':
+                    computation = prev - current;
+                    break;
+                case '*':
+                    computation = prev * current;
+                    break;
+                case '/':
+                    if (current === 0) {
+                        showLoginMessage("Cannot divide by zero!");
+                        clear();
+                        return;
+                    }
+                    computation = prev / current;
+                    break;
+                default:
+                    return;
+            }
+            
+            calculationHistory = `${previousInput} ${getOperationSymbol(operation)} ${currentInput} =`;
+            currentInput = roundResult(computation).toString();
+            operation = null;
+            previousInput = '';
+            resetScreen = true;
+        }
+        
+        function roundResult(num) {
+            return Math.round(num * 100000000) / 100000000;
+        }
+        
+        function getOperationSymbol(op) {
+            switch(op) {
+                case '+': return '+';
+                case '-': return '-';
+                case '*': return '×';
+                case '/': return '÷';
+                default: return op;
+            }
+        }
+        
+        function clear() {
+            currentInput = '0';
+            previousInput = '';
+            operation = null;
+            calculationHistory = '';
+        }
+        
+        function backspace() {
+            if (currentInput.length > 1) {
+                currentInput = currentInput.slice(0, -1);
+            } else {
+                currentInput = '0';
+            }
+        }
+        
+        function updateDisplay() {
+            display.textContent = currentInput;
+            historyDisplay.textContent = calculationHistory;
+        }
+        
+        // UI Functions
+        function showLoginMessage(message, type = 'error') {
+            loginMessage.textContent = message;
+            if (type === 'success') {
+                loginMessage.classList.add('success');
+            } else {
+                loginMessage.classList.remove('success');
+            }
+            
+            setTimeout(() => {
+                loginMessage.textContent = '';
+            }, 4000);
+        }
+        
+        function showSignupMessage(message, type = 'error') {
+            signupMessage.textContent = message;
+            if (type === 'success') {
+                signupMessage.classList.add('success');
+            } else {
+                signupMessage.classList.remove('success');
+            }
+            
+            setTimeout(() => {
+                signupMessage.textContent = '';
+            }, 4000);
+        }
+        
+        function showCalculator(username) {
+            loginForm.style.display = 'none';
+            signupForm.style.display = 'none';
+            calculator.style.display = 'block';
+            userDisplay.textContent = username;
+            clear();
+            updateDisplay();
+        }
+        
+        function showLoginForm() {
+            calculator.style.display = 'none';
+            signupForm.style.display = 'none';
+            loginForm.style.display = 'block';
+            usernameInput.value = '';
+            passwordInput.value = '';
+            loginMessage.textContent = '';
+        }
+        
+        function showSignupForm() {
+            loginForm.style.display = 'none';
+            calculator.style.display = 'none';
+            signupForm.style.display = 'block';
+            newUsernameInput.value = '';
+            newEmailInput.value = '';
+            newPasswordInput.value = '';
+            confirmPasswordInput.value = '';
+            signupMessage.textContent = '';
+            resetPasswordRequirements();
+        }
+        
+        // Keyboard support for calculator
+        document.addEventListener('keydown', (e) => {
+            if (calculator.style.display === 'block') {
+                if (e.key >= '0' && e.key <= '9') {
+                    appendNumber(e.key);
+                } else if (e.key === '.') {
+                    appendNumber('.');
+                } else if (e.key === '+' || e.key === '-' || e.key === '*' || e.key === '/') {
+                    chooseOperation(e.key);
+                } else if (e.key === 'Enter' || e.key === '=') {
+                    compute();
+                } else if (e.key === 'Escape') {
+                    clear();
+                } else if (e.key === 'Backspace') {
+                    backspace();
+                }
+                updateDisplay();
+            }
+        });
+        
+        // Add some interactive effects to inputs
+        const inputs = document.querySelectorAll('input');
+        inputs.forEach(input => {
+            input.addEventListener('focus', () => {
+                input.parentElement.parentElement.style.transform = 'scale(1.02)';
+            });
+            
+            input.addEventListener('blur', () => {
+                input.parentElement.parentElement.style.transform = 'scale(1)';
+            });
+        });
+    </script>
+</body>
+</html>
